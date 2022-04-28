@@ -11,11 +11,13 @@
     <None Remove="MongoDB.Driver" />
     <None Remove="Dtos\" />
     <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Mapping\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
     <Folder Include="Dtos\" />
+    <Folder Include="Mapping\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />

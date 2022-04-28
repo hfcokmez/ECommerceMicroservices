@@ -28,6 +28,7 @@ namespace FreeCourse.Services.Catalog
         {
 
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Microservices Order API", Version = "v1" });

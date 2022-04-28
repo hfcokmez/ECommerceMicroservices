@@ -1,10 +1,9 @@
 ﻿using System;
 namespace FreeCourse.Services.Catalog.Dtos
 {
-    public class CategortDto
+    public class CategoryDto
     {
-        public CategortDto()
-        {
-        }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }
