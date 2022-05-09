@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FreeCourse.Services.Catalog.Extensions;
 using FreeCourse.Services.Catalog.Services.Abstract;
 using FreeCourse.Services.Catalog.Services.Concrete;
 using FreeCourse.Services.Catalog.Settings;
@@ -30,8 +31,8 @@ namespace FreeCourse.Services.Catalog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ICourseService, CourseService>();
+            //Dependency Injection Load Services
+            services.LoadServices();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
 

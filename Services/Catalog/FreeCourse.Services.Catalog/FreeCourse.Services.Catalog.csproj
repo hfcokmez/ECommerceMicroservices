@@ -16,6 +16,7 @@
     <None Remove="Services\" />
     <None Remove="Services\Abstract\" />
     <None Remove="Services\Concrete\" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -26,6 +27,7 @@
     <Folder Include="Services\" />
     <Folder Include="Services\Abstract\" />
     <Folder Include="Services\Concrete\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
