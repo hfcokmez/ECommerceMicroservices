@@ -11,6 +11,6 @@ namespace FreeCourse.Services.Catalog.Services.Abstract
     {
         Task<Response<List<CategoryDto>>> GetAllAsync();
         Task<Response<CategoryDto>> GetByIdAsync(string id);
-        Task<Response<CategoryDto>> CreateAysnc(Category category);
+        Task<Response<CategoryDto>> CreateAsync(CategoryDto categoryDto);
     }
 }

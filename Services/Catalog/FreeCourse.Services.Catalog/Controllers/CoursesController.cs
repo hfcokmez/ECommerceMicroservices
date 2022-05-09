@@ -42,7 +42,7 @@ namespace FreeCourse.Services.Catalog.Controllers
             return CreateActionResultInstance(response);
         }
 
-        [HttpPost ]
+        [HttpPost]
         public async Task<IActionResult> Create(CourseCreateDto courseCreate)
         {
             var response = await _courseService.CreateAsync(courseCreate);
