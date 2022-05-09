@@ -31,7 +31,7 @@ namespace FreeCourse.Services.Catalog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Dependency Injection Load Services
+            //Dependency Injection Load Services:
             services.LoadServices();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
