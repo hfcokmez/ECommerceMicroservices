@@ -1,5 +1,5 @@
 ﻿using System;
-namespace FreeCourse.Services.Catalog.Models
+namespace FreeCourse.Shared.Dtos
 {
     public class NoContent
     {
