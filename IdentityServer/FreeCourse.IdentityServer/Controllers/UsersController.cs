@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 using FreeCourse.IdentityServer.Dtos;
 using FreeCourse.IdentityServer.Models;
 using FreeCourse.Shared.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace FreeCourse.IdentityServer.Controllers
 {
+    [Authorize(LocalApi.PolicyName)]
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
