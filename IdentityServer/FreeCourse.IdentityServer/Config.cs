@@ -54,8 +54,10 @@ namespace FreeCourse.IdentityServer
                     AllowOfflineAccess = true,
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    //Alınan access token ile kullanıcının hangi bilgilerine erişilebileceğinin belirtildiği alan: 
                     AllowedScopes = { IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.OfflineAccess, IdentityServerConstants.StandardScopes.Profile, "roles" },
+                        IdentityServerConstants.StandardScopes.OfflineAccess, IdentityServerConstants.StandardScopes.Profile,
+                        "roles", IdentityServerConstants.LocalApi.ScopeName },
                     AccessTokenLifetime = 1*60*60,
                     RefreshTokenExpiration = TokenExpiration.Absolute, 
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,

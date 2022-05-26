@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using FreeCourse.IdentityServer.Dtos;
@@ -21,6 +22,7 @@ namespace FreeCourse.IdentityServer.Controllers
         {
             _userManager = userManager;
         }
+
         [HttpPost]
         public async Task<IActionResult> SignUp(SignUpDto signUpDto)
         {
@@ -36,6 +38,17 @@ namespace FreeCourse.IdentityServer.Controllers
                 return BadRequest(Response<NoContent>.Fail(result.Errors.Select(x => x.Description).ToList(), 400));
             }
             return NoContent() ;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUser()
+        {
+            //userIdClaim token içinde bulunan sub claiminin içindeki verileri tutar. Value'su da burada user id bilgisi
+            var userIdClaim = User.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Sub);
+            if (userIdClaim == null ) { return BadRequest(); }
+            var user = await _userManager.FindByIdAsync(userIdClaim.Value);
+            if (user == null) { return BadRequest(); }
+            return Ok(new { Id = user.Id, UserName = user.UserName, Email = user.Email, City = user.City });
         }
     }
 }
