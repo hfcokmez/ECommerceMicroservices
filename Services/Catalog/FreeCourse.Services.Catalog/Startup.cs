@@ -54,7 +54,7 @@ namespace FreeCourse.Services.Catalog
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Microservices Order API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Microservices Catalog API", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
