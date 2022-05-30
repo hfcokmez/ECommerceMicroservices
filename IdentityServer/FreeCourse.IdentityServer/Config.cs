@@ -16,6 +16,7 @@ namespace FreeCourse.IdentityServer
             {
                 new ApiResource("resource_catalog"){Scopes = {"catalog_fullpermission"}},
                 new ApiResource("resource_photo_stock"){Scopes = {"photo_stock_fullpermission"}},
+                new ApiResource(" "){Scopes = {"basket_fullpermission"}},
                 new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -33,6 +34,7 @@ namespace FreeCourse.IdentityServer
             {
                 new ApiScope("catalog_fullpermission", "Full Access For Catalog API"),
                 new ApiScope("photo_stock_fullpermission", "Full Access For Photo Stock API"),
+                new ApiScope("basket_fullpermission", "Full Access For Basket Stock API"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -55,14 +57,14 @@ namespace FreeCourse.IdentityServer
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     //Alınan access token ile kullanıcının hangi bilgilerine erişilebileceğinin belirtildiği alan: 
-                    AllowedScopes = { IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId,
+                    AllowedScopes = {"basket_fullpermission", IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.OfflineAccess, IdentityServerConstants.StandardScopes.Profile,
                         "roles", IdentityServerConstants.LocalApi.ScopeName },
                     AccessTokenLifetime = 1*60*60,
-                    RefreshTokenExpiration = TokenExpiration.Absolute, 
+                    RefreshTokenExpiration = TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
                     RefreshTokenUsage = TokenUsage.ReUse
-                } 
+                }
             };
     }
 }

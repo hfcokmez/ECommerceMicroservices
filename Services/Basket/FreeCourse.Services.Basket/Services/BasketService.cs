@@ -28,7 +28,7 @@ namespace FreeCourse.Services.Basket.Services
             {
                 return Response<BasketDto>.Fail("The basket not found", 404);
             }
-            return Response<BasketDto>.Success(JsonSerializer.Deserialize<BasketDto>(basket), 200));
+            return Response<BasketDto>.Success(JsonSerializer.Deserialize<BasketDto>(basket), 200);
         }
 
         public async Task<Response<bool>> SaveOrUpdate(BasketDto basketDto)
