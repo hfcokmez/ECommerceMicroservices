@@ -1,4 +1,4 @@
-*> .NET Core MVC Application
+-> .NET Core MVC Application
     
     -> IdentityServer (SQL Server Express - EF Core)
 
