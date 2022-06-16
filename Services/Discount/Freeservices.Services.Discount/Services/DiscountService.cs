@@ -39,7 +39,8 @@ namespace Freeservices.Services.Discount.Services
 
         public async Task<Response<Models.Discount>> GetByCodeAndUserId(string code, string userId)
         {
-            var discount = (await _dbConnection.QueryAsync("SELECT * FROM discount WHERE code = @Code AND userId = @UserId", new {Code = code, UserId = userId})).SingleOrDefault();
+            var discount = (await _dbConnection.QueryAsync<Models.Discount>("SELECT * FROM discount WHERE code = @Code AND userId = @UserId", new { Code = code, UserId = userId })).FirstOrDefault();
+
             if (discount == null)
             {
                 return Response<Models.Discount>.Fail("Discount not found", 404);
@@ -49,8 +50,8 @@ namespace Freeservices.Services.Discount.Services
 
         public async Task<Response<Models.Discount>> GetById(int id)
         {
-            var discount = (await _dbConnection.QueryAsync<Models.Discount>("SELECT * FROM discount WHERE id =@Id", new {Id = id})).SingleOrDefault();
-            if(discount == null)
+            var discount = (await _dbConnection.QueryAsync<Models.Discount>("SELECT * FROM discount WHERE id =@Id", new { Id = id })).SingleOrDefault();
+            if (discount == null)
             {
                 return Response<Models.Discount>.Fail("Discount not found", 404);
             }
@@ -74,7 +75,7 @@ namespace Freeservices.Services.Discount.Services
             {
                 return Response<NoContent>.Success(204);
             }
-            return Response<NoContent>.Fail("An error occured while updating",404);
+            return Response<NoContent>.Fail("An error occured while updating", 404);
         }
     }
 }

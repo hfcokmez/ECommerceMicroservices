@@ -15,6 +15,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
     [Route("api/[controller]")]
     public class PhotosController : CustomBaseController
     {
+        [HttpPost("SavePhoto")]
         public async Task<IActionResult> SavePhoto(IFormFile photo, CancellationToken cancellationToken)
         {
             if(photo != null && photo.Length > 0)
@@ -29,6 +30,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
             return CreateActionResultInstance(Response<PhotoDto>.Fail("Photo is empty", 400));
         }
 
+        [HttpDelete("DeletePhoto")]
         public IActionResult DeletePhoto(string photoUrl)
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/photos", photoUrl);
