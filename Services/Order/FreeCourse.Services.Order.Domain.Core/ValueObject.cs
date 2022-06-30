@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace FreeCourse.Services.Order.Domain.Core
 {
-	public abstract class ValueObject
-	{
+    public abstract class ValueObject
+    {
         protected static bool EqualOperator(ValueObject left, ValueObject right)
         {
             if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
@@ -47,4 +47,3 @@ namespace FreeCourse.Services.Order.Domain.Core
         }
     }
 }
-

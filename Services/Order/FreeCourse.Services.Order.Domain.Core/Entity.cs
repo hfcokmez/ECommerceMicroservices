@@ -22,7 +22,7 @@ namespace FreeCourse.Services.Order.Domain.Core
             if (!IsTransient())
             {
                 if (!_requestedHashCode.HasValue)
-                    _requestedHashCode = this.Id.GetHashCode() ^ 31;
+                    _requestedHashCode = this.Id.GetHashCode() ^ 31; // XOR for random distribution (http://blogs.msdn.com/b/ericlippert/archive/2011/02/28/guidelines-and-rules-for-gethashcode.aspx)
 
                 return _requestedHashCode.Value;
             }
@@ -35,7 +35,7 @@ namespace FreeCourse.Services.Order.Domain.Core
             if (obj == null || !(obj is Entity))
                 return false;
 
-            if (ReferenceEquals(this, obj))
+            if (Object.ReferenceEquals(this, obj))
                 return true;
 
             if (this.GetType() != obj.GetType())
@@ -51,19 +51,18 @@ namespace FreeCourse.Services.Order.Domain.Core
 
         public static bool operator ==(Entity left, Entity right)
         {
-            if (Equals(left, null))
-                return Equals(right, null) ? true : false;
+            if (Object.Equals(left, null))
+                return (Object.Equals(right, null)) ? true : false;
             else
                 return left.Equals(right);
         }
 
         public static bool operator !=(Entity left, Entity right)
         {
-            if (Equals(left, null))
-                return Equals(right, null) ? true : false;
+            if (Object.Equals(left, null))
+                return (Object.Equals(right, null)) ? true : false;
             else
                 return left.Equals(right);
         }
     }
 }
-
