@@ -30,15 +30,16 @@ namespace FreeCourse.Services.Order.API
         {
             services.AddDbContext<OrderDbContext>(opt =>
             {
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                configuration =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), configure =>
                 {
-                    configuration.MigrationsAssembly("FreeCourse.Services.Order.Infrastructure");
+                    configure.MigrationsAssembly("FreeCourse.Services.Order.Infrastructure");
                 });
             });
+            services.AddHttpContextAccessor();
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Freeservices.Services.Discount", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Freeservices.Services.Order", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
