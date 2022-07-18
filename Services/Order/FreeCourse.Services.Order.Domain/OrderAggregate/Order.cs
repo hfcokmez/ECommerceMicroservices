@@ -12,6 +12,10 @@ namespace FreeCourse.Services.Order.Domain.OrderAggregate
         public string BuyerId { get; private set; }
         private readonly List<OrderItem> _orderItems; //bkz. Backing Field
 
+        public Order()
+        {
+        }
+
         public Order(string buyerId, Address address)
         {
             _orderItems = new List<OrderItem>();
