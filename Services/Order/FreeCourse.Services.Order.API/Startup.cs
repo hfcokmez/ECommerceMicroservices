@@ -40,7 +40,7 @@ namespace FreeCourse.Services.Order.API
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.Authority = Configuration["IdentityServerUrl"];
-                options.Audience = "resource_basket";
+                options.Audience = "resource_order";
                 options.RequireHttpsMetadata = false;
             });
             services.AddDbContext<OrderDbContext>(opt =>
