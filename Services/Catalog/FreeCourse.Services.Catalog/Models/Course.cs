@@ -28,7 +28,6 @@ namespace FreeCourse.Services.Catalog.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string CategoryId { get; set; }
 
-        [BsonIgnore]
-        public Category Category { get; set; }
+        [BsonIgnore] public Category Category { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-namespace FreeCourse.Services.Order.Application.Dtos
+﻿namespace FreeCourse.Services.Order.Application.Dtos
 {
     public class AddressDto
     {

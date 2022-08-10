@@ -1,19 +1,18 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System;
+using System.Linq;
 using FreeCourse.IdentityServer.Data;
 using FreeCourse.IdentityServer.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
-using System;
-using System.Linq;
 
 namespace FreeCourse.IdentityServer
 {
@@ -35,7 +34,10 @@ namespace FreeCourse.IdentityServer
                 //    rollOnFileSizeLimit: true,
                 //    shared: true,
                 //    flushToDiskInterval: TimeSpan.FromSeconds(1))
-                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
+                .WriteTo.Console(
+                    outputTemplate:
+                    "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+                    theme: AnsiConsoleTheme.Code)
                 .CreateLogger();
 
             try
@@ -53,9 +55,10 @@ namespace FreeCourse.IdentityServer
                     var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
                     if (!userManager.Users.Any())
-                    {
-                        userManager.CreateAsync(new ApplicationUser { UserName = "hfcokmez", Email = "hfcokmez@gmail.com", City = "İstanbul" }, "Password12*").Wait();
-                    }
+                        userManager.CreateAsync(
+                            new ApplicationUser
+                                { UserName = "hfcokmez", Email = "hfcokmez@gmail.com", City = "İstanbul" },
+                            "Password12*").Wait();
                 }
 
                 Log.Information("Starting host...");
@@ -73,12 +76,11 @@ namespace FreeCourse.IdentityServer
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
                 .UseSerilog()
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+        }
     }
 }

@@ -1,15 +1,12 @@
-﻿using FreeCourse.IdentityServer.Dtos;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Threading.Tasks;
+using FreeCourse.IdentityServer.Dtos;
 using FreeCourse.IdentityServer.Models;
 using FreeCourse.Shared.Dtos;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
 using static IdentityServer4.IdentityServerConstants;
 
 namespace FreeCourse.IdentityServer.Controllers
@@ -39,9 +36,7 @@ namespace FreeCourse.IdentityServer.Controllers
             var result = await _userManager.CreateAsync(user, signupDto.Password);
 
             if (!result.Succeeded)
-            {
                 return BadRequest(Response<NoContent>.Fail(result.Errors.Select(x => x.Description).ToList(), 400));
-            }
 
             return NoContent();
         }
@@ -57,7 +52,7 @@ namespace FreeCourse.IdentityServer.Controllers
 
             if (user == null) return BadRequest();
 
-            return Ok(new { Id = user.Id, UserName = user.UserName, Email = user.Email, City = user.City });
+            return Ok(new { user.Id, user.UserName, user.Email, user.City });
         }
     }
 }

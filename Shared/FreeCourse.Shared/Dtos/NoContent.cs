@@ -1,5 +1,4 @@
-﻿using System;
-namespace FreeCourse.Shared.Dtos
+﻿namespace FreeCourse.Shared.Dtos
 {
     public class NoContent
     {

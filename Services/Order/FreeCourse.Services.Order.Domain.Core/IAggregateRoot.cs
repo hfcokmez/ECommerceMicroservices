@@ -1,5 +1,4 @@
-﻿using System;
-namespace FreeCourse.Services.Order.Domain.Core
+﻿namespace FreeCourse.Services.Order.Domain.Core
 {
     public interface IAggregateRoot
     {

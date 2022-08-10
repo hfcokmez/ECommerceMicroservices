@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FreeCourse.Shared.ControllerBases;
 using FreeCourse.Shared.Services;
 using Freeservices.Services.Discount.Services;
@@ -14,8 +11,8 @@ namespace Freeservices.Services.Discount.Controllers
     [Route("api/[controller]")]
     public class DiscountsController : CustomBaseController
     {
-        private readonly ISharedIdentityService _identityService;
         private readonly IDiscountService _discountService;
+        private readonly ISharedIdentityService _identityService;
 
         public DiscountsController(ISharedIdentityService identityService, IDiscountService discountService)
         {
@@ -63,4 +60,3 @@ namespace Freeservices.Services.Discount.Controllers
         }
     }
 }
-

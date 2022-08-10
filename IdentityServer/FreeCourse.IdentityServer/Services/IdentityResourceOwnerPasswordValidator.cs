@@ -1,11 +1,9 @@
-﻿using FreeCourse.IdentityServer.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using FreeCourse.IdentityServer.Models;
 using IdentityModel;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FreeCourse.IdentityServer.Services
 {
@@ -30,6 +28,7 @@ namespace FreeCourse.IdentityServer.Services
 
                 return;
             }
+
             var passwordCheck = await _userManager.CheckPasswordAsync(existUser, context.Password);
 
             if (passwordCheck == false)
@@ -41,7 +40,7 @@ namespace FreeCourse.IdentityServer.Services
                 return;
             }
 
-            context.Result = new GrantValidationResult(existUser.Id.ToString(), OidcConstants.AuthenticationMethods.Password);
+            context.Result = new GrantValidationResult(existUser.Id, OidcConstants.AuthenticationMethods.Password);
         }
     }
 }

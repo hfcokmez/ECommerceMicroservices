@@ -1,5 +1,4 @@
-﻿using System;
-using FreeCourse.Services.Catalog.Services.Abstract;
+﻿using FreeCourse.Services.Catalog.Services.Abstract;
 using FreeCourse.Services.Catalog.Services.Concrete;
 using Microsoft.Extensions.DependencyInjection;
 

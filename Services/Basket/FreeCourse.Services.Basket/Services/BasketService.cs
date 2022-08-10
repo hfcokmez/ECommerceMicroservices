@@ -1,16 +1,15 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Threading.Tasks;
 using FreeCourse.Services.Basket.Dtos;
 using FreeCourse.Shared.Dtos;
 
 namespace FreeCourse.Services.Basket.Services
 {
-	public class BasketService : IBasketService
-	{
+    public class BasketService : IBasketService
+    {
         private readonly RedisService _redisService;
 
-        public BasketService(RedisService redisService )
+        public BasketService(RedisService redisService)
         {
             _redisService = redisService;
         }
@@ -24,18 +23,15 @@ namespace FreeCourse.Services.Basket.Services
         public async Task<Response<BasketDto>> GetBasket(string userId)
         {
             var basket = await _redisService.GetDatabase().StringGetAsync(userId);
-            if (String.IsNullOrEmpty(basket))
-            {
-                return Response<BasketDto>.Fail("The basket not found", 404);
-            }
+            if (string.IsNullOrEmpty(basket)) return Response<BasketDto>.Fail("The basket not found", 404);
             return Response<BasketDto>.Success(JsonSerializer.Deserialize<BasketDto>(basket), 200);
         }
 
         public async Task<Response<bool>> SaveOrUpdate(BasketDto basketDto)
         {
-            var status = await _redisService.GetDatabase().StringSetAsync(basketDto.UserId, JsonSerializer.Serialize(basketDto));
+            var status = await _redisService.GetDatabase()
+                .StringSetAsync(basketDto.UserId, JsonSerializer.Serialize(basketDto));
             return status ? Response<bool>.Success(204) : Response<bool>.Fail("Basket could not updated or saved", 500);
         }
     }
 }
-

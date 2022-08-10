@@ -1,12 +1,11 @@
-﻿using System;
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 
 namespace FreeCourse.Services.Basket.Services
 {
-	public class RedisService
-	{
-		private readonly string _host;
-		private readonly int _port;
+    public class RedisService
+    {
+        private readonly string _host;
+        private readonly int _port;
         private ConnectionMultiplexer _connectionMultiplexer;
 
         public RedisService(string host, int port)
@@ -15,9 +14,14 @@ namespace FreeCourse.Services.Basket.Services
             _port = port;
         }
 
-        public void Connect() => _connectionMultiplexer = ConnectionMultiplexer.Connect($"{_host}:{_port}");
+        public void Connect()
+        {
+            _connectionMultiplexer = ConnectionMultiplexer.Connect($"{_host}:{_port}");
+        }
 
-        public IDatabase GetDatabase(int db = 1) => _connectionMultiplexer.GetDatabase(db);
+        public IDatabase GetDatabase(int db = 1)
+        {
+            return _connectionMultiplexer.GetDatabase(db);
+        }
     }
 }
-

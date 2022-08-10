@@ -5,9 +5,9 @@
 using System;
 using System.Linq;
 using System.Security.Claims;
-using IdentityModel;
 using FreeCourse.IdentityServer.Data;
 using FreeCourse.IdentityServer.Models;
+using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +22,7 @@ namespace FreeCourse.IdentityServer
             var services = new ServiceCollection();
             services.AddLogging();
             services.AddDbContext<ApplicationDbContext>(options =>
-               options.UseSqlite(connectionString));
+                options.UseSqlite(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -43,24 +43,19 @@ namespace FreeCourse.IdentityServer
                         {
                             UserName = "alice",
                             Email = "AliceSmith@email.com",
-                            EmailConfirmed = true,
+                            EmailConfirmed = true
                         };
                         var result = userMgr.CreateAsync(alice, "Pass123$").Result;
-                        if (!result.Succeeded)
-                        {
-                            throw new Exception(result.Errors.First().Description);
-                        }
+                        if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
 
-                        result = userMgr.AddClaimsAsync(alice, new Claim[]{
+                        result = userMgr.AddClaimsAsync(alice, new[]
+                        {
                             new Claim(JwtClaimTypes.Name, "Alice Smith"),
                             new Claim(JwtClaimTypes.GivenName, "Alice"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
+                            new Claim(JwtClaimTypes.WebSite, "http://alice.com")
                         }).Result;
-                        if (!result.Succeeded)
-                        {
-                            throw new Exception(result.Errors.First().Description);
-                        }
+                        if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
                         Log.Debug("alice created");
                     }
                     else
@@ -78,22 +73,17 @@ namespace FreeCourse.IdentityServer
                             EmailConfirmed = true
                         };
                         var result = userMgr.CreateAsync(bob, "Pass123$").Result;
-                        if (!result.Succeeded)
-                        {
-                            throw new Exception(result.Errors.First().Description);
-                        }
+                        if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
 
-                        result = userMgr.AddClaimsAsync(bob, new Claim[]{
+                        result = userMgr.AddClaimsAsync(bob, new[]
+                        {
                             new Claim(JwtClaimTypes.Name, "Bob Smith"),
                             new Claim(JwtClaimTypes.GivenName, "Bob"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
                             new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
                             new Claim("location", "somewhere")
                         }).Result;
-                        if (!result.Succeeded)
-                        {
-                            throw new Exception(result.Errors.First().Description);
-                        }
+                        if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
                         Log.Debug("bob created");
                     }
                     else

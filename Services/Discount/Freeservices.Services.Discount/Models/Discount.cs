@@ -1,9 +1,11 @@
 ﻿using System;
+using Dapper.Contrib.Extensions;
+
 namespace Freeservices.Services.Discount.Models
 {
-    [Dapper.Contrib.Extensions.Table("discount")]
-	public class Discount
-	{
+    [Table("discount")]
+    public class Discount
+    {
         public int Id { get; set; }
         public string UserId { get; set; }
         public int Rate { get; set; }
@@ -11,4 +13,3 @@ namespace Freeservices.Services.Discount.Models
         public DateTime CreatedTime { get; set; }
     }
 }
-

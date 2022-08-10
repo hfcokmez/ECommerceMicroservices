@@ -1,9 +1,7 @@
-﻿using System;
-namespace FreeCourse.Services.PhotoStock.Dtos
+﻿namespace FreeCourse.Services.PhotoStock.Dtos
 {
-	public class PhotoDto
-	{
+    public class PhotoDto
+    {
         public string Url { get; set; }
     }
 }
-

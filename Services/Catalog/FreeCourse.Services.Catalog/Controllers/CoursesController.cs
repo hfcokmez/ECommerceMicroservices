@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FreeCourse.Services.Catalog.Dtos;
 using FreeCourse.Services.Catalog.Services.Abstract;
 using FreeCourse.Shared.ControllerBases;
@@ -63,6 +60,5 @@ namespace FreeCourse.Services.Catalog.Controllers
             var response = await _courseService.DeleteAsync(id);
             return CreateActionResultInstance(response);
         }
-
     }
 }

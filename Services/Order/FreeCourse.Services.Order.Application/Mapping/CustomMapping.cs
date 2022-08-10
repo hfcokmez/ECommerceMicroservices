@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using FreeCourse.Services.Order.Application.Dtos;
 using FreeCourse.Services.Order.Domain.OrderAggregate;
 

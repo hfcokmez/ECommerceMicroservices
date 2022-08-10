@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace FreeCourse.Shared.Services
 {
     public class SharedIdentityService : ISharedIdentityService
     {
-        private IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public SharedIdentityService(IHttpContextAccessor httpContextAccessor)
         {

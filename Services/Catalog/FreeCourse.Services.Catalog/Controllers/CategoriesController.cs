@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FreeCourse.Services.Catalog.Dtos;
 using FreeCourse.Services.Catalog.Services.Abstract;
 using FreeCourse.Shared.ControllerBases;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace FreeCourse.Services.Catalog.Controllers
 {
@@ -27,7 +23,7 @@ namespace FreeCourse.Services.Catalog.Controllers
             return CreateActionResultInstance(categories);
         }
 
-        
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {

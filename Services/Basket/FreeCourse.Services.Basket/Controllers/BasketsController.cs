@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FreeCourse.Services.Basket.Dtos;
 using FreeCourse.Services.Basket.Services;
 using FreeCourse.Shared.ControllerBases;
@@ -44,4 +41,3 @@ namespace FreeCourse.Services.Basket.Controllers
         }
     }
 }
-

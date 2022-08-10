@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FreeCourse.Services.Catalog.Dtos;
@@ -33,10 +32,7 @@ namespace FreeCourse.Services.Catalog.Services.Concrete
         public async Task<Response<CategoryDto>> GetByIdAsync(string id)
         {
             var category = await _categoryCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
-            if (category == null)
-            {
-                return Response<CategoryDto>.Fail("Category not found", 404);
-            }
+            if (category == null) return Response<CategoryDto>.Fail("Category not found", 404);
             return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(category), 200);
         }
 
@@ -45,7 +41,6 @@ namespace FreeCourse.Services.Catalog.Services.Concrete
             var category = _mapper.Map<Category>(categoryDto);
             await _categoryCollection.InsertOneAsync(category);
             return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(category), 200);
-        } 
-
+        }
     }
 }

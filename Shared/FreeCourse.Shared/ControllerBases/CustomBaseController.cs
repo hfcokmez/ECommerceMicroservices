@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using FreeCourse.Shared.Dtos;
+﻿using FreeCourse.Shared.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FreeCourse.Shared.ControllerBases

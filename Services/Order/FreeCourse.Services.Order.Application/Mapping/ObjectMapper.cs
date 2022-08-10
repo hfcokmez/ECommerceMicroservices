@@ -5,12 +5,9 @@ namespace FreeCourse.Services.Order.Application.Mapping
 {
     public static class ObjectMapper
     {
-        private static readonly Lazy<IMapper> lazy = new Lazy<IMapper>(() =>
+        private static readonly Lazy<IMapper> lazy = new(() =>
         {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<CustomMapping>();
-            });
+            var config = new MapperConfiguration(cfg => { cfg.AddProfile<CustomMapping>(); });
             return config.CreateMapper();
         });
 
