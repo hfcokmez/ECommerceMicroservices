@@ -1,6 +1,8 @@
+using System;
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services.Concrete;
 using FreeCourse.Web.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +28,15 @@ namespace FreeCourse.Web
             services.AddHttpClient<IIdentityService, IdentityService>();
             services.Configure<ServiceAPISettings>(Configuration.GetSection("ServiceAPISettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                options =>
+                {
+                    options.LoginPath = "/Auth/SignIn";
+                    options.ExpireTimeSpan = TimeSpan.FromDays(60);
+                    options.SlidingExpiration = true;
+                    options.Cookie.Name = "ECommerceCookie";
+                });
             services.AddControllersWithViews();
         }
 
@@ -44,9 +55,12 @@ namespace FreeCourse.Web
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
