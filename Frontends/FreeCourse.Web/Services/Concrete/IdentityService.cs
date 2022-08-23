@@ -23,7 +23,7 @@ namespace FreeCourse.Web.Services.Concrete
         private readonly ClientSettings _clientSettings;
         private readonly HttpClient _httpClient;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ServiceAPISettings _serviceAapiSettings;
+        private readonly ServiceAPISettings _serviceApiSettings;
 
         public IdentityService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor,
             IOptions<ClientSettings> clientSettings, IOptions<ServiceAPISettings> serviceApiSettings)
@@ -31,14 +31,14 @@ namespace FreeCourse.Web.Services.Concrete
             _httpClient = httpClient;
             _httpContextAccessor = httpContextAccessor;
             _clientSettings = clientSettings.Value;
-            _serviceAapiSettings = serviceApiSettings.Value;
+            _serviceApiSettings = serviceApiSettings.Value;
         }
 
         public async Task<Response<bool>> SignIn(SignInInput signInInput)
         {
             var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
-                Address = _serviceAapiSettings.BaseUri,
+                Address = _serviceApiSettings.BaseUri,
                 Policy = new DiscoveryPolicy()
             });
 
