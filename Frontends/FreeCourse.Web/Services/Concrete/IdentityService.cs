@@ -132,6 +132,7 @@ namespace FreeCourse.Web.Services.Concrete
             };
             var authenticationResult = await _httpContextAccessor.HttpContext.AuthenticateAsync();
             var properties = authenticationResult.Properties;
+            properties.StoreTokens(authenticationTokens);
             await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 authenticationResult.Principal, properties);
             
