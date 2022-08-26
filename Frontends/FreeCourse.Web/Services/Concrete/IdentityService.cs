@@ -140,7 +140,25 @@ namespace FreeCourse.Web.Services.Concrete
 
         public async Task RevokeRefreshToken()
         {
-            throw new NotImplementedException();
+            var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            {
+                Address = _serviceApiSettings.BaseUri,
+                Policy = new DiscoveryPolicy()
+            });
+
+            if (discovery.IsError) throw discovery.Exception;
+
+            var refreshToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
+
+            TokenRevocationRequest tokenRevocationRequest = new()
+            {
+                ClientId = _clientSettings.WebClientForUser.ClientId,
+                ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
+                Address = discovery.RevocationEndpoint,
+                Token = refreshToken,
+                TokenTypeHint = OpenIdConnectParameterNames.RefreshToken
+            };
+            await _httpClient.RevokeTokenAsync(tokenRevocationRequest);
         }
     }
 }
