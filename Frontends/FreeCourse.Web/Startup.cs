@@ -26,8 +26,13 @@ namespace FreeCourse.Web
         {
             services.AddHttpContextAccessor();
             services.AddHttpClient<IIdentityService, IdentityService>();
-            services.Configure<ServiceAPISettings>(Configuration.GetSection("ServiceAPISettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
+            services.Configure<ServiceAPISettings>(Configuration.GetSection("ServiceAPISettings"));
+            var serviceAPISettings = Configuration.GetSection("ServiceAPISettings").Get<ServiceAPISettings>();
+            services.AddHttpClient<IUserService, UserService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceAPISettings.IdentityBaseUri);
+            });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 options =>
