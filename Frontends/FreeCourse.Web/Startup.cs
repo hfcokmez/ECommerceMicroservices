@@ -1,4 +1,5 @@
 using System;
+using FreeCourse.Web.Handlers;
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services.Concrete;
 using FreeCourse.Web.Services.Interfaces;
@@ -29,10 +30,11 @@ namespace FreeCourse.Web
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
             services.Configure<ServiceAPISettings>(Configuration.GetSection("ServiceAPISettings"));
             var serviceAPISettings = Configuration.GetSection("ServiceAPISettings").Get<ServiceAPISettings>();
+            services.AddScoped<ResourceOwnerHandler>();
             services.AddHttpClient<IUserService, UserService>(opt =>
             {
                 opt.BaseAddress = new Uri(serviceAPISettings.IdentityBaseUri);
-            });
+            }).AddHttpMessageHandler<ResourceOwnerHandler>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 options =>
