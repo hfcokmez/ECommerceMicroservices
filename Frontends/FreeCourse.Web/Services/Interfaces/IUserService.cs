@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using FreeCourse.Web.Models.ViewModels;
+using FreeCourse.Web.Models.ViewModels.Users;
 
 namespace FreeCourse.Web.Services.Interfaces
 {

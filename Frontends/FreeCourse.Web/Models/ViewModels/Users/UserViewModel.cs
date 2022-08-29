@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace FreeCourse.Web.Models.ViewModels
+namespace FreeCourse.Web.Models.ViewModels.Users
 {
     public class UserViewModel
     {

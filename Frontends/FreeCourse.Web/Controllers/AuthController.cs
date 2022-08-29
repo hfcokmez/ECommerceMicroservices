@@ -2,6 +2,8 @@ using System;
 using System.Threading.Tasks;
 using FreeCourse.Web.Models.Inputs;
 using FreeCourse.Web.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FreeCourse.Web.Controllers
@@ -37,6 +39,14 @@ namespace FreeCourse.Web.Controllers
                 return View();
             } 
             return RedirectToAction(nameof(Index), "Home");
+        }
+
+        
+        public async Task<IActionResult> SignOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await _identityService.RevokeRefreshToken();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }
