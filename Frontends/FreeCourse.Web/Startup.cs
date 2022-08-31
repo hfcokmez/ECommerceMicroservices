@@ -1,4 +1,5 @@
 using System;
+using FreeCourse.Shared.Services;
 using FreeCourse.Web.Handlers;
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services.Concrete;
@@ -31,6 +32,7 @@ namespace FreeCourse.Web
             services.Configure<ServiceAPISettings>(Configuration.GetSection("ServiceAPISettings"));
             var serviceAPISettings = Configuration.GetSection("ServiceAPISettings").Get<ServiceAPISettings>();
             services.AddScoped<ResourceOwnerHandler>();
+            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddHttpClient<IUserService, UserService>(opt =>
             {
                 opt.BaseAddress = new Uri(serviceAPISettings.IdentityBaseUri);

@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\Services\Catalog\FreeCourse.Services.Catalog\FreeCourse.Services.Catalog.csproj" />
         <ProjectReference Include="..\..\Shared\FreeCourse.Shared\FreeCourse.Shared.csproj" />
     </ItemGroup>
 

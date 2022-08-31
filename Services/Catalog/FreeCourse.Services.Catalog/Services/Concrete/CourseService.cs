@@ -46,7 +46,7 @@ namespace FreeCourse.Services.Catalog.Services.Concrete
             return Response<CourseDto>.Success(_mapper.Map<CourseDto>(course), 200);
         }
 
-        public async Task<Response<List<CourseDto>>> GetAllByUserIdAsync(string userId)
+        public async Task<Response<List<CourseDto>>> GetAllCoursesByUserIdAsync(string userId)
         {
             var courses = await _courseCollection.Find(x => x.UserId == userId).ToListAsync();
             if (courses.Any())
