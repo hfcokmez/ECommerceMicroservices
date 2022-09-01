@@ -32,17 +32,19 @@ namespace FreeCourse.Web
             services.Configure<ServiceAPISettings>(Configuration.GetSection("ServiceAPISettings"));
             var serviceAPISettings = Configuration.GetSection("ServiceAPISettings").Get<ServiceAPISettings>();
             services.AddScoped<ResourceOwnerHandler>();
+            services.AddScoped<ClientCredentialTokenHandler>();
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddHttpClient<IUserService, UserService>(opt =>
             {
                 opt.BaseAddress = new Uri(serviceAPISettings.IdentityBaseUri);
             }).AddHttpMessageHandler<ResourceOwnerHandler>();
-            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
             
             services.AddHttpClient<ICatalogService, CatalogService>(opt =>
             {
                 opt.BaseAddress = new Uri($"{serviceAPISettings.GatewayBaseUri}/{serviceAPISettings.Catalog.Path}");
-            });
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+            
+            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 options =>
