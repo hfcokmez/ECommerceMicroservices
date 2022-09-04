@@ -19,6 +19,8 @@
                                             <th>Course Name</th>
                                             <th>Price</th>
                                             <th>Duration</th>
+                                            <th>Category</th>
+                                            <th>Processes</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -29,6 +31,8 @@
                                                 <td>@item.Name</td>
                                                 <td>@item.Price</td>
                                                 <td>@item.Feature.Duration</td>
+                                                <td>@item.Category.Name</td>
+                                                <td><a asp-controller="Course" asp-action="Update" asp-route-courseId="@item.Id" class="btn btn-success btn-sm">Update</a></td>
                                             </tr>
                                         }
                                         </tbody>
