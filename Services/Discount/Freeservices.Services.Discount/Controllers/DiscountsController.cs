@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Freeservices.Services.Discount.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class DiscountsController : CustomBaseController
     {

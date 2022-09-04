@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FreeCourse.Services.Basket.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class BasketsController : CustomBaseController
     {

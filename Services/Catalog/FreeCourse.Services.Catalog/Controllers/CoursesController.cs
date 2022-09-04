@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FreeCourse.Services.Catalog.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class CoursesController : CustomBaseController
     {

@@ -25,6 +25,10 @@ namespace FreeCourse.Services.Catalog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
             //Dependency Injection Load Services
             services.LoadServices();
             services.AddAutoMapper(typeof(Startup));
@@ -85,6 +89,12 @@ namespace FreeCourse.Services.Catalog
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()); // allow credetials
+            app.UseCors(options => options.AllowAnyOrigin());
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -11,7 +11,6 @@ namespace FreeCourse.Web.Models.Inputs
         public string Description { get; set; }
         [Required]
         public decimal Price { get; set; }
-        [Required]
         public string UserId { get; set; }
         public string Picture { get; set; }
         public FeatureViewModel Feature { get; set; }

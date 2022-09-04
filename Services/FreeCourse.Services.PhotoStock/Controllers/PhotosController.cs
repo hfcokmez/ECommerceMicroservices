@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FreeCourse.Services.PhotoStock.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class PhotosController : CustomBaseController
     {

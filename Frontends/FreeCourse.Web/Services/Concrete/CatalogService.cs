@@ -1,9 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using FreeCourse.Shared.Dtos;
-using FreeCourse.Web.Models;
 using FreeCourse.Web.Models.Inputs;
 using FreeCourse.Web.Models.ViewModels.Catalogs;
 using FreeCourse.Web.Services.Interfaces;
@@ -73,7 +73,6 @@ namespace FreeCourse.Web.Services.Concrete
             var response = await _httpClient.PostAsJsonAsync<CourseCreateInput>("courses", courseCreateInput);
             return response.IsSuccessStatusCode;
         }
-
         public async Task<bool> UpdateCourseAsync(CourseUpdateInput courseUpdateInput)
         {
             var response = await _httpClient.PutAsJsonAsync<CourseUpdateInput>("courses", courseUpdateInput);
