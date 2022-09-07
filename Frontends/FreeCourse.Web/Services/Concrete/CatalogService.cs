@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using FreeCourse.Shared.Dtos;
+using FreeCourse.Web.Helpers;
 using FreeCourse.Web.Models.Inputs;
 using FreeCourse.Web.Models.ViewModels.Catalogs;
 using FreeCourse.Web.Services.Interfaces;
@@ -14,10 +15,12 @@ namespace FreeCourse.Web.Services.Concrete
     {
         private readonly HttpClient _httpClient;
         private readonly IPhotoStockService _photoStockService;
-        public CatalogService(HttpClient httpClient, IPhotoStockService photoStockService)
+        private readonly PhotoHelper _photoHelper;
+        public CatalogService(HttpClient httpClient, IPhotoStockService photoStockService, PhotoHelper photoHelper)
         {
             _httpClient = httpClient;
             _photoStockService = photoStockService;
+            _photoHelper = photoHelper;
         }
 
         public async Task<List<CourseViewModel>> GetAllCoursesAsync()
@@ -49,7 +52,12 @@ namespace FreeCourse.Web.Services.Concrete
             {
                 return null;
             }
+            
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
+            responseSuccess.Data.ForEach(x =>
+            {
+                x.Picture = x.Picture != null ? _photoHelper.GetPhotoUrl(x.Picture) : null;
+            });
             return responseSuccess.Data;
         }
 

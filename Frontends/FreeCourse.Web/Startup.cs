@@ -1,6 +1,7 @@
 using System;
 using FreeCourse.Shared.Services;
 using FreeCourse.Web.Handlers;
+using FreeCourse.Web.Helpers;
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services.Concrete;
 using FreeCourse.Web.Services.Interfaces;
@@ -35,8 +36,9 @@ namespace FreeCourse.Web
             services.AddScoped<ResourceOwnerHandler>();
             services.AddScoped<ClientCredentialTokenHandler>();
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+            services.AddSingleton<PhotoHelper>();
             services.AddHttpClient<IUserService, UserService>(opt =>
-            {
+            { 
                 opt.BaseAddress = new Uri(serviceAPISettings.IdentityBaseUri);
             }).AddHttpMessageHandler<ResourceOwnerHandler>();
             
