@@ -5,24 +5,25 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3"/>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Controllers\"/>
-        <None Remove="Dtos\"/>
-        <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer"/>
+        <None Remove="Controllers\" />
+        <None Remove="Dtos\" />
+        <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Controllers\"/>
-        <Folder Include="wwwroot\"/>
-        <Folder Include="wwwroot\Photos\"/>
-        <Folder Include="Dtos\"/>
+        <Folder Include="Controllers\" />
+        <Folder Include="wwwroot\" />
+        <Folder Include="wwwroot\Photos" />
+        <Folder Include="wwwroot\Photos\" />
+        <Folder Include="Dtos\" />
     </ItemGroup>
     <ItemGroup>
-        <Content Remove="wwwroot\"/>
-        <Content Remove="wwwroot\Photos\"/>
+        <Content Remove="wwwroot\" />
+        <Content Remove="wwwroot\Photos\" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\Shared\FreeCourse.Shared\FreeCourse.Shared.csproj">

@@ -45,6 +45,11 @@ namespace FreeCourse.Web
                 opt.BaseAddress = new Uri($"{serviceAPISettings.GatewayBaseUri}/{serviceAPISettings.Catalog.Path}");
             }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
             
+            services.AddHttpClient<IPhotoStockService, PhotoStockService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceAPISettings.GatewayBaseUri}/{serviceAPISettings.PhotoStock.Path}");
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+            
             services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
                 CookieAuthenticationDefaults.AuthenticationScheme,

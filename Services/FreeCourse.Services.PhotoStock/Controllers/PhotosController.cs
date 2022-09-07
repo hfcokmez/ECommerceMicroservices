@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using FreeCourse.Services.PhotoStock.Dtos;
@@ -19,9 +20,10 @@ namespace FreeCourse.Services.PhotoStock.Controllers
             if (photo != null && photo.Length > 0)
             {
                 var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/photos", photo.FileName);
+
                 using var stream = new FileStream(path, FileMode.Create);
                 await photo.CopyToAsync(stream, cancellationToken);
-                var returnPath = "photos/" + photo.FileName;
+                var returnPath = photo.FileName;
                 PhotoDto photoDto = new() { Url = returnPath };
                 return CreateActionResultInstance(Response<PhotoDto>.Success(photoDto, 200));
             }
