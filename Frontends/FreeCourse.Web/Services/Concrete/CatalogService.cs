@@ -90,6 +90,15 @@ namespace FreeCourse.Web.Services.Concrete
         }
         public async Task<bool> UpdateCourseAsync(CourseUpdateInput courseUpdateInput)
         {
+            var deleteResult = await _photoStockService.DeletePhoto(courseUpdateInput.Picture);
+            if (deleteResult)
+            {
+                var resultPhotoService = await _photoStockService.UploadPhoto(courseUpdateInput.PhotoFormFile);
+                if (resultPhotoService != null)
+                {
+                    courseUpdateInput.Picture = resultPhotoService.Url;
+                }
+            }
             var response = await _httpClient.PutAsJsonAsync<CourseUpdateInput>("courses", courseUpdateInput);
             return response.IsSuccessStatusCode;
         }

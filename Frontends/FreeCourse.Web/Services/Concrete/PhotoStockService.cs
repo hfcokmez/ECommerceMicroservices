@@ -45,7 +45,7 @@ namespace FreeCourse.Web.Services.Concrete
 
         public async Task<bool> DeletePhoto(string photoUrl)
         {
-            var response = await _httpClient.DeleteAsync($"photos?photoUrl={photoUrl}");
+            var response = await _httpClient.DeleteAsync($"photos/DeletePhoto?photoUrl={photoUrl}");
             return response.IsSuccessStatusCode;
         }
     }
