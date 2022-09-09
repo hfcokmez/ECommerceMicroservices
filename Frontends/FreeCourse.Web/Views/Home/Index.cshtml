@@ -1,8 +1,80 @@
-﻿@{
+﻿@using FreeCourse.Web.Models.ViewModels.Catalogs;
+@{
     ViewData["Title"] = "Home Page";
+    var slideCount = 0;
+    var count = 0;
+    var cardAmount = 4;
 }
+@model List<CourseViewModel>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<style>
+    html,body{height:100%;}
+    .carousel,.d-block, .w-100{height:100%;}
+    .carousel-inner{height:100%;}
+</style>
+
+@if (Model.Any())
+{
+    <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="false">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            @foreach (var item in Model.Take(3))
+            {
+                <div class="@(slideCount == 0 ? "carousel-item active" : "carousel-item")" data-bs-interval="10000">
+                    <img src="@item.Picture" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block" carousel>
+                        <h5>@item.Name</h5>
+                        <p>@item.ShortDescription</p>
+                    </div>
+                </div>
+                slideCount++;
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <hr/>
+    <h2>Courses</h2>
+    <hr/>
+    <br/>
+    @foreach (var item in Model)
+    {
+        count++;
+        if (count == 1 || count % cardAmount == 1)
+        {
+            @Html.Raw("<div class='row row-cols-1 row-cols-md-4 g-4'>")
+        }
+
+        <div class="col">
+            <div class="card">
+                <img src="@item.Picture" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.ShortDescription</p>
+                    <div>
+                        <a class="btn btn-outline-success" href="#">Learn more</a>
+                        <a class="btn btn-success" href="#">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <big class="text-muted">@item.Price TRY</big>
+                </div>
+            </div>
+        </div>
+
+        if (count % cardAmount == 0)
+        {
+            @Html.Raw("</div>")
+        }
+    }
+}

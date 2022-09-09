@@ -31,6 +31,10 @@ namespace FreeCourse.Web.Services.Concrete
                 return null;
             }
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
+            responseSuccess.Data.ForEach(x =>
+            {
+                x.Picture = x.Picture != null ? _photoHelper.GetPhotoUrl(x.Picture) : null;
+            });
             return responseSuccess.Data;
         }
 
@@ -90,7 +94,7 @@ namespace FreeCourse.Web.Services.Concrete
         }
         public async Task<bool> UpdateCourseAsync(CourseUpdateInput courseUpdateInput)
         {
-            var deleteResult = await _photoStockService.DeletePhoto(courseUpdateInput.Picture);
+            var deleteResult = courseUpdateInput.Picture != null ? await _photoStockService.DeletePhoto(courseUpdateInput.Picture) : true;
             if (deleteResult)
             {
                 var resultPhotoService = await _photoStockService.UploadPhoto(courseUpdateInput.PhotoFormFile);
