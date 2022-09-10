@@ -9,7 +9,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Application</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -34,7 +34,9 @@
                                 <li>
                                     <a class="dropdown-item" asp-controller="User" asp-action="Index">Profile</a>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
                                 <li>
                                     <a class="dropdown-item" asp-controller="Auth" asp-action="SignOut">Logout</a>
                                 </li>
@@ -51,15 +53,14 @@
         </div>
     </nav>
 </header>
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
+<main role="main" class="pb-3">
+    @RenderBody()
+</main>
+
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2022 - FreeCourse.Web 
+        &copy; 2022 - FreeCourse.Web
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
