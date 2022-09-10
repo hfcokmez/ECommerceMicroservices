@@ -25,7 +25,7 @@
             @foreach (var item in Model.Take(3))
             {
                 <div class="@(slideCount == 0 ? "carousel-item active" : "carousel-item")" data-bs-interval="10000">
-                    <img src="@item.Picture" class="d-block w-100" alt="...">
+                    <img src="@item.StockPictureUrl" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-none d-md-block" carousel>
                         <h5>@item.Name</h5>
                         <p>@item.ShortDescription</p>
@@ -52,17 +52,17 @@
         count++;
         if (count == 1 || count % cardAmount == 1)
         {
-            @Html.Raw("<div class='row row-cols-1 row-cols-md-4 g-4'>")
+            @Html.Raw("<div class='row row-cols-1 row-cols-md-4 g-4 mb-2'>")
         }
 
         <div class="col">
             <div class="card">
-                <img src="@item.Picture" class="card-img-top">
+                <img src="@item.StockPictureUrl" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
                     <p class="card-text">@item.ShortDescription</p>
                     <div>
-                        <a class="btn btn-outline-success" href="#">Learn more</a>
+                        <a asp-controller="Home" asp-action="Detail" class="btn btn-outline-success" asp-route-id="@item.Id">Learn more</a>
                         <a class="btn btn-success" href="#">Add to Cart</a>
                     </div>
                 </div>

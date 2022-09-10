@@ -28,5 +28,10 @@ namespace FreeCourse.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public async Task<IActionResult> Detail(string id)
+        {
+            return View(await _catalogService.GetByCourseIdAsync(id));
+        }
     }
 }
