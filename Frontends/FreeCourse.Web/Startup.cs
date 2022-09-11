@@ -1,5 +1,6 @@
 using System;
 using FreeCourse.Shared.Services;
+using FreeCourse.Web.Extensions;
 using FreeCourse.Web.Handlers;
 using FreeCourse.Web.Helpers;
 using FreeCourse.Web.Models;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Writers;
 
 namespace FreeCourse.Web
 {
@@ -27,32 +29,13 @@ namespace FreeCourse.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.LoadServices();
+            services.LoadHttpClientServices(Configuration);
+            
             services.AddHttpContextAccessor();
-            services.AddHttpClient<IIdentityService, IdentityService>();
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
             services.Configure<ServiceAPISettings>(Configuration.GetSection("ServiceAPISettings"));
-            var serviceAPISettings = Configuration.GetSection("ServiceAPISettings").Get<ServiceAPISettings>();
             services.AddAccessTokenManagement();
-            services.AddScoped<ResourceOwnerHandler>();
-            services.AddScoped<ClientCredentialTokenHandler>();
-            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
-            services.AddSingleton<PhotoHelper>();
-            services.AddHttpClient<IUserService, UserService>(opt =>
-            { 
-                opt.BaseAddress = new Uri(serviceAPISettings.IdentityBaseUri);
-            }).AddHttpMessageHandler<ResourceOwnerHandler>();
-            
-            services.AddHttpClient<ICatalogService, CatalogService>(opt =>
-            {
-                opt.BaseAddress = new Uri($"{serviceAPISettings.GatewayBaseUri}/{serviceAPISettings.Catalog.Path}");
-            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
-            
-            services.AddHttpClient<IPhotoStockService, PhotoStockService>(opt =>
-            {
-                opt.BaseAddress = new Uri($"{serviceAPISettings.GatewayBaseUri}/{serviceAPISettings.PhotoStock.Path}");
-            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
-            
-            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 options =>
