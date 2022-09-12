@@ -62,7 +62,7 @@
                         <p class="card-text">@item.ShortDescription</p>
                         <div>
                             <a asp-controller="Home" asp-action="Detail" class="btn btn-outline-success" asp-route-id="@item.Id">Learn more</a>
-                            <a class="btn btn-success" href="#">Add to Cart</a>
+                            <a asp-controller="Basket" asp-action="AddBasketItem" asp-route-courseId="@item.Id" class="btn btn-success">Add to Cart</a>
                         </div>
                     </div>
                     <div class="card-footer">
