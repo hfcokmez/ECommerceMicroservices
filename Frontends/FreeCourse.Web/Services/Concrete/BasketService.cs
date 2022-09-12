@@ -40,9 +40,21 @@ namespace FreeCourse.Web.Services.Concrete
             return response.IsSuccessStatusCode;
         }
 
-        public Task AddBasketItem(BasketItemViewModel basketItemViewModel)
+        public async Task AddBasketItem(BasketItemViewModel basketItemViewModel)
         {
-            throw new System.NotImplementedException();
+            var basket = await Get();
+            if (basket != null)
+            {
+                if (!basket.BasketItems.Any(x => x.CourseId == basketItemViewModel.CourseId))
+                {
+                    basket.BasketItems.Add(basketItemViewModel);
+                }
+            }
+            else
+            {
+                basket.BasketItems.Add(basketItemViewModel);
+            }
+            await SaveOrUpdate(basket);
         }
 
         public async Task<bool> RemoveBasketItem(string courseId)
