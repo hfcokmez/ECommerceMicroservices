@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using FreeCourse.Shared.Dtos;
 using FreeCourse.Web.Helpers;
-using FreeCourse.Web.Models.Inputs;
+using FreeCourse.Web.Models.Inputs.Courses;
 using FreeCourse.Web.Models.ViewModels.Catalogs;
 using FreeCourse.Web.Services.Interfaces;
 

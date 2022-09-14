@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using FreeCourse.Shared.Services;
-using FreeCourse.Web.Models.Inputs;
+using FreeCourse.Web.Models.Inputs.Courses;
 using FreeCourse.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

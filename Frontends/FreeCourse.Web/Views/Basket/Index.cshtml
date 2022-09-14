@@ -10,7 +10,6 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Your Basket</h5>
-                </div>
                 @if (Model != null && Model.BasketItems.Any())
                 {
                     <table class="table table-striped">
@@ -25,7 +24,7 @@
                                 <td>@item.CourseName</td>
                                 <td>@item.Price</td>
                                 <td>
-                                    <a asp-controller="Basket" asp-action="RemoveBasketItem" asp-route-courseId="@item.CourseId" class="btn btn-danger">Remove</a>
+                                    <a asp-controller="Basket" asp-action="RemoveBasketItem" asp-route-courseId="@item.CourseId" class="btn btn-sm btn-danger">Remove</a>
                                 </td>
                             </tr>
                         }
@@ -46,6 +45,7 @@
                 {
                     <div class="alert alert-info">Your basket is empty</div>
                 }
+                </div>
             </div>
         </div>
     </div>

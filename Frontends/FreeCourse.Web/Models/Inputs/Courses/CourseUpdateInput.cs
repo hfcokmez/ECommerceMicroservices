@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using FreeCourse.Web.Models.ViewModels.Catalogs;
 using Microsoft.AspNetCore.Http;
 
-namespace FreeCourse.Web.Models.Inputs
+namespace FreeCourse.Web.Models.Inputs.Courses
 {
     public class CourseUpdateInput
     {

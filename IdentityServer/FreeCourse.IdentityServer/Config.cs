@@ -18,6 +18,7 @@ namespace FreeCourse.IdentityServer
             new ApiResource("resource_order") { Scopes = { "order_fullpermission" } },
             new ApiResource("resource_fake_payment") { Scopes = { "fake_payment_fullpermission" } },
             new ApiResource("resource_gateway") { Scopes = { "gateway_fullpermission" } },
+            new ApiResource("resource_discount"){ Scopes = { "discount_fullpermission" } },
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -45,6 +46,8 @@ namespace FreeCourse.IdentityServer
                 new ApiScope("fake_payment_fullpermission", "Full Access For Payment API"),
 
                 new ApiScope("gateway_fullpermission", "Full Access For Gateway"),
+                
+                new ApiScope("discount_fullpermission", "Full Access For Discount API"),
 
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
@@ -74,7 +77,7 @@ namespace FreeCourse.IdentityServer
                     AllowedScopes =
                     {
                         "gateway_fullpermission", "order_fullpermission", "fake_payment_fullpermission",
-                        "basket_fullpermission", IdentityServerConstants.StandardScopes.Email,
+                        "basket_fullpermission", "discount_fullpermission", IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,

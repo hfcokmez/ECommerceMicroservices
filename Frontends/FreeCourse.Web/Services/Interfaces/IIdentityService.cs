@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using FreeCourse.Shared.Dtos;
-using FreeCourse.Web.Models.Inputs;
+using FreeCourse.Web.Models.Inputs.Auths;
 using IdentityModel.Client;
 
 namespace FreeCourse.Web.Services.Interfaces

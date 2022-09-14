@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using FreeCourse.Shared.Dtos;
 using FreeCourse.Web.Models;
-using FreeCourse.Web.Models.Inputs;
+using FreeCourse.Web.Models.Inputs.Auths;
 using FreeCourse.Web.Services.Interfaces;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;

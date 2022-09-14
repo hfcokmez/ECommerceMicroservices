@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using FreeCourse.Shared.Dtos;
 using FreeCourse.Web.Models.ViewModels.Baskets;
 
 namespace FreeCourse.Web.Services.Interfaces

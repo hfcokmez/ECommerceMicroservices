@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FreeCourse.Web.Models.Inputs;
+using FreeCourse.Web.Models.Inputs.Courses;
 using FreeCourse.Web.Models.ViewModels.Catalogs;
 
 namespace FreeCourse.Web.Services.Interfaces

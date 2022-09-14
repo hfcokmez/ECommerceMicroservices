@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using FreeCourse.Web.Models.Inputs;
+using FreeCourse.Web.Models.Inputs.Auths;
 using FreeCourse.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;

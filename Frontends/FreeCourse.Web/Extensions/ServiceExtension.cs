@@ -33,6 +33,10 @@ namespace FreeCourse.Web.Extensions
             {
                 opt.BaseAddress = new Uri($"{serviceAPISettings.GatewayBaseUri}/{serviceAPISettings.Basket.Path}");
             }).AddHttpMessageHandler<ResourceOwnerHandler>();
+            services.AddHttpClient<IDiscountService, DiscountService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceAPISettings.GatewayBaseUri}/{serviceAPISettings.Discount.Path}");
+            }).AddHttpMessageHandler<ResourceOwnerHandler>();
         }
 
         public static void LoadServices(this IServiceCollection services)
