@@ -5,46 +5,48 @@
 
 @model FreeCourse.Web.Models.ViewModels.Baskets.BasketViewModel
 <div class="container">
-    <div class="col-md-8 offset-md-2">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Your Basket</h5>
+    <div class="row mt-3">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Your Basket</h5>
+                </div>
+                @if (Model != null && Model.BasketItems.Any())
+                {
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Operations</th>
+                        </tr>
+                        @foreach (var item in Model.BasketItems)
+                        {
+                            <tr>
+                                <td>@item.CourseName</td>
+                                <td>@item.Price</td>
+                                <td>
+                                    <a asp-controller="Basket" asp-action="RemoveBasketItem" asp-route-courseId="@item.CourseId" class="btn btn-danger">Remove</a>
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.HasDiscount)
+                        {
+                            <tr>
+                                <td>Discount rate</td>
+                                <th colspan="2">@Model.DiscountRate%</th>
+                            </tr>
+                        }
+                        <tr>
+                            <td>@(Model.HasDiscount ? "Discounted amount" : "Total amount")</td>
+                            <th colspan="2">@Model.TotalPrice TRY</th>
+                        </tr>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-info">Your basket is empty</div>
+                }
             </div>
-            @if (Model != null && Model.BasketItems.Any())
-            {
-                <table class="table table-striped">
-                    <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Operations</th>
-                    </tr>
-                    @foreach (var item in Model.BasketItems)
-                    {
-                        <tr>
-                            <td>@item.CourseName</td>
-                            <td>@item.Price</td>
-                            <td>
-                                <a asp-controller="Basket" asp-action="RemoveBasketItem" asp-route-courseId="@item.CourseId" class="btn btn-danger">Remove</a>
-                            </td>
-                        </tr>
-                    }
-                    @if (Model.HasDiscount)
-                    {
-                        <tr>
-                            <td>Discount rate</td>
-                            <th colspan="2">@Model.DiscountRate%</th>
-                        </tr>
-                    }
-                    <tr>
-                        <td>@(Model.HasDiscount ? "Discounted amount" : "Total amount")</td>
-                        <th colspan="2">@Model.TotalPrice TRY</th>
-                    </tr>
-                </table>
-            }
-            else
-            {
-                <div class="alert-info">Your basket is empty</div>
-            }
         </div>
     </div>
 </div>

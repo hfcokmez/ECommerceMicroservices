@@ -4,6 +4,7 @@ using FreeCourse.Web.Models.Inputs;
 using FreeCourse.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FreeCourse.Web.Controllers
@@ -17,12 +18,12 @@ namespace FreeCourse.Web.Controllers
             _identityService = identityService;
         }
 
-        public IActionResult SingIn()
+        public IActionResult SignIn()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> SingIn(SignInInput signInInput)
+        public async Task<IActionResult> SignIn(SignInInput signInInput)
         {
             if (!ModelState.IsValid)
             {

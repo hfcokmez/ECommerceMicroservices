@@ -53,5 +53,16 @@ namespace FreeCourse.Shared.Dtos
                 IsSuccessful = false
             };
         }
+        
+        public static Response<T> Fail(T data,string error, int statusCode)
+        {
+            return new Response<T>
+            {
+                Data = data,
+                Errors = new List<string> { error },
+                StatusCode = statusCode,
+                IsSuccessful = false
+            };
+        }
     }
 }

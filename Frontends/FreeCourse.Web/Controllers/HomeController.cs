@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FreeCourse.Web.Exceptions;
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -29,7 +30,7 @@ namespace FreeCourse.Web.Controllers
         public IActionResult Error()
         {
             var errorFeature = HttpContext.Features.Get<IExceptionHandlerFeature>();
-            if (errorFeature != null && errorFeature is UnAuthorizedException)
+            if (errorFeature != null && errorFeature.Error is UnAuthorizedException)
             {
                 return RedirectToAction(nameof(AuthController.SignOut), "Auth");
             }
