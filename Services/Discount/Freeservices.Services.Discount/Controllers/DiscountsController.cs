@@ -34,7 +34,7 @@ namespace Freeservices.Services.Discount.Controllers
             return CreateActionResultInstance(discount);
         }
 
-        [HttpGet("GetByCode")]
+        [HttpGet("GetByCode/{code}")]
         public async Task<IActionResult> GetByCode(string code)
         {
             var userId = _identityService.UserId;

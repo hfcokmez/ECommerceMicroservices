@@ -20,13 +20,13 @@ namespace FreeCourse.Web.Services.Concrete
 
         public async Task<DiscountViewModel> GetByDiscountCodeAsync(string discountCode)
         {
-            var response = await _httpClient.GetAsync($"discounts/{discountCode}");
+            var response = await _httpClient.GetAsync($"discounts/GetByCode/{discountCode}");
             if (!response.IsSuccessStatusCode)
             {
                 return null;
             }
-            var discount = await response.Content.ReadFromJsonAsync<Response<List<DiscountViewModel>>>();
-            return discount.Data.FirstOrDefault();
+            var discount = await response.Content.ReadFromJsonAsync<Response<DiscountViewModel>>();
+            return discount.Data;
         }
     }
 }

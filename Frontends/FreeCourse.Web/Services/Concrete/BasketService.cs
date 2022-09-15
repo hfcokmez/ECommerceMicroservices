@@ -81,13 +81,13 @@ namespace FreeCourse.Web.Services.Concrete
             {
                 basket.DiscountCode = null;
             }
-            return  await SaveOrUpdate(basket);
+            return await SaveOrUpdate(basket);
         }
 
         public async Task<bool> ApplyDiscount(string discountCode)
         {
             var basket = await Get();
-            if (basket == null || basket.DiscountCode == null)
+            if (basket == null)
             {
                 return false;
             }
@@ -105,11 +105,12 @@ namespace FreeCourse.Web.Services.Concrete
         public async Task<bool> CancelAppliedDiscount()
         {
             var basket = await Get();
-            if (basket == null || basket.DiscountCode == null)
+            if (basket == null)
             {
                 return false;
             }
-            basket.DiscountCode = null;
+
+            basket.CancelDiscount();
             await SaveOrUpdate(basket);
             return true;
         }
