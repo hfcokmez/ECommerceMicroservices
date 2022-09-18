@@ -42,6 +42,10 @@ namespace FreeCourse.Web.Extensions
             {
                 opt.BaseAddress = new Uri($"{serviceAPISettings.GatewayBaseUri}/{serviceAPISettings.Payment.Path}");
             }).AddHttpMessageHandler<ResourceOwnerHandler>();
+            services.AddHttpClient<IOrderService, OrderService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceAPISettings.GatewayBaseUri}/{serviceAPISettings.Order.Path}");
+            }).AddHttpMessageHandler<ResourceOwnerHandler>();
         }
 
         public static void LoadServices(this IServiceCollection services)

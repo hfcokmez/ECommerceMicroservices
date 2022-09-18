@@ -15,18 +15,18 @@ namespace FreeCourse.Services.Order.API.Controllers
     public class OrdersController : CustomBaseController
     {
         private readonly IMediator _mediator;
-        private readonly ISharedIdentityService _service;
+        private readonly ISharedIdentityService _sharedIdentityService;
 
-        public OrdersController(IMediator mediator, ISharedIdentityService service)
+        public OrdersController(IMediator mediator, ISharedIdentityService sharedIdentityService)
         {
             _mediator = mediator;
-            _service = service;
+            _sharedIdentityService = _sharedIdentityService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetOrders()
         {
-            var response = await _mediator.Send(new GetOrdersByUserIdQuery { UserId = _service.UserId });
+            var response = await _mediator.Send(new GetOrdersByUserIdQuery { UserId = _sharedIdentityService.UserId });
             return CreateActionResultInstance(response);
         }
 
