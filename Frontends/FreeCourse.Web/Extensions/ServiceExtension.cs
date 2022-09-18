@@ -3,6 +3,7 @@ using FreeCourse.Shared.Services;
 using FreeCourse.Web.Handlers;
 using FreeCourse.Web.Helpers;
 using FreeCourse.Web.Models;
+using FreeCourse.Web.Models.Inputs.FakePayment;
 using FreeCourse.Web.Services.Concrete;
 using FreeCourse.Web.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +37,10 @@ namespace FreeCourse.Web.Extensions
             services.AddHttpClient<IDiscountService, DiscountService>(opt =>
             {
                 opt.BaseAddress = new Uri($"{serviceAPISettings.GatewayBaseUri}/{serviceAPISettings.Discount.Path}");
+            }).AddHttpMessageHandler<ResourceOwnerHandler>();
+            services.AddHttpClient<IPaymentService, PaymentService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceAPISettings.GatewayBaseUri}/{serviceAPISettings.Payment.Path}");
             }).AddHttpMessageHandler<ResourceOwnerHandler>();
         }
 
