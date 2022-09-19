@@ -62,7 +62,7 @@ namespace FreeCourse.Web.Services.Concrete
                 {
                     ProductId = basketItem.CourseId,
                     ProductName = basketItem.CourseName,
-                    Price = basketItem.Price,
+                    Price = basketItem.GetCurrentPrice,
                     PictureUrl = ""
                 };
                 orderCreateInput.OrderItems.Add(orderItemCreate);
@@ -75,6 +75,7 @@ namespace FreeCourse.Web.Services.Concrete
             }
 
             var orderCreated = await response.Content.ReadFromJsonAsync<OrderCreatedViewModel>();
+            orderCreated.IsSuccessful = true;
             return orderCreated;
         }
 
