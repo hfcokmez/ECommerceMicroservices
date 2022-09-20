@@ -4,17 +4,17 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <None Remove="Dtos\"/>
-        <None Remove="ControllerBases\"/>
-        <None Remove="Services\"/>
+        <None Remove="Dtos\" />
+        <None Remove="ControllerBases\" />
+        <None Remove="Services\" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Dtos\"/>
-        <Folder Include="ControllerBases\"/>
-        <Folder Include="Services\"/>
+        <Folder Include="Dtos\" />
+        <Folder Include="ControllerBases\" />
+        <Folder Include="Services\" />
     </ItemGroup>
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
 
     </ItemGroup>
 </Project>
