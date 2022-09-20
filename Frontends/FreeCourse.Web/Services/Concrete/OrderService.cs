@@ -80,9 +80,51 @@ namespace FreeCourse.Web.Services.Concrete
             return orderCreated.Data;
         }
 
-        public Task SuspendOrder(CheckOutInfoInput checkOutInfoInput)
+        public async Task<SuspendOrderViewModel> SuspendOrder(CheckOutInfoInput checkOutInfoInput)
         {
-            throw new System.NotImplementedException();
+            var basket = await _basketService.Get();
+            
+            var orderCreateInput = new OrderCreateInput()
+            {
+                BuyerId = _sharedIdentityService.UserId,
+                Address = new AddressCreateInput()
+                {
+                    Province = checkOutInfoInput.Province,
+                    District = checkOutInfoInput.District,
+                    Line = checkOutInfoInput.Line,
+                    Street = checkOutInfoInput.Street,
+                    ZipCode = checkOutInfoInput.ZipCode
+                }
+            };
+            foreach (var basketItem in basket.BasketItems)
+            {
+                var orderItemCreate = new OrderItemCreateInput()
+                {
+                    ProductId = basketItem.CourseId,
+                    ProductName = basketItem.CourseName,
+                    Price = basketItem.GetCurrentPrice,
+                    PictureUrl = ""
+                };
+                orderCreateInput.OrderItems.Add(orderItemCreate);
+            }
+            
+            var payment = new PaymentInfoInput()
+            {
+                CardName = checkOutInfoInput.CardName,
+                CardNumber = checkOutInfoInput.CardNumber,
+                CVV = checkOutInfoInput.CVV,
+                Expiration = checkOutInfoInput.Expiration,
+                TotalPrice = basket.TotalPrice,
+                Order = orderCreateInput
+            };
+            
+            var responsePayment = await _paymentService.ReceivePayment(payment);
+            if (!responsePayment)
+            {
+                return new SuspendOrderViewModel() { Error = "Payment failed", IsSuccessful = false };
+            }
+
+            return new SuspendOrderViewModel() { IsSuccessful = true };
         }
 
         public async Task<List<OrderViewModel>> GetOrders()
