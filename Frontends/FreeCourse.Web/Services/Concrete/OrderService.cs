@@ -74,9 +74,10 @@ namespace FreeCourse.Web.Services.Concrete
                 return new OrderCreatedViewModel() { Error = "Order cannot be created", IsSuccessful = false };
             }
 
-            var orderCreated = await response.Content.ReadFromJsonAsync<OrderCreatedViewModel>();
-            orderCreated.IsSuccessful = true;
-            return orderCreated;
+            var orderCreated = await response.Content.ReadFromJsonAsync<Response<OrderCreatedViewModel>>();
+            orderCreated.Data.IsSuccessful = true;
+            await _basketService.Delete();
+            return orderCreated.Data;
         }
 
         public Task SuspendOrder(CheckOutInfoInput checkOutInfoInput)

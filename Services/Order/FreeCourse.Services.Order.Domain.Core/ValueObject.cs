@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FreeCourse.Services.Order.Domain.Core
@@ -7,36 +8,42 @@ namespace FreeCourse.Services.Order.Domain.Core
     {
         protected static bool EqualOperator(ValueObject left, ValueObject right)
         {
-            if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null)) return false;
+            if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+            {
+                return false;
+            }
             return ReferenceEquals(left, null) || left.Equals(right);
         }
 
         protected static bool NotEqualOperator(ValueObject left, ValueObject right)
         {
-            return !EqualOperator(left, right);
+            return !(EqualOperator(left, right));
         }
 
         protected abstract IEnumerable<object> GetEqualityComponents();
 
         public override bool Equals(object obj)
         {
-            if (obj == null || obj.GetType() != GetType()) return false;
+            if (obj == null || obj.GetType() != GetType())
+            {
+                return false;
+            }
 
             var other = (ValueObject)obj;
 
-            return GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
+            return this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
         }
 
         public override int GetHashCode()
         {
             return GetEqualityComponents()
-                .Select(x => x != null ? x.GetHashCode() : 0)
-                .Aggregate((x, y) => x ^ y);
+             .Select(x => x != null ? x.GetHashCode() : 0)
+             .Aggregate((x, y) => x ^ y);
         }
 
         public ValueObject GetCopy()
         {
-            return MemberwiseClone() as ValueObject;
+            return this.MemberwiseClone() as ValueObject;
         }
     }
 }

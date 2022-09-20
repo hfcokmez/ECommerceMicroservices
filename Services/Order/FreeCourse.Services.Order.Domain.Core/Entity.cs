@@ -1,14 +1,20 @@
-﻿namespace FreeCourse.Services.Order.Domain.Core
+﻿using System;
+namespace FreeCourse.Services.Order.Domain.Core
 {
     public abstract class Entity
     {
         private int? _requestedHashCode;
+        private int _Id;
 
-        public virtual int Id { get; set; }
+        public virtual int Id
+        {
+            get => _Id;
+            set => _Id = value;
+        }
 
         public bool IsTransient()
         {
-            return Id == default;
+            return this.Id == default(Int32);
         }
 
         public override int GetHashCode()
@@ -16,14 +22,12 @@
             if (!IsTransient())
             {
                 if (!_requestedHashCode.HasValue)
-                    _requestedHashCode =
-                        Id.GetHashCode() ^
-                        31; // XOR for random distribution (http://blogs.msdn.com/b/ericlippert/archive/2011/02/28/guidelines-and-rules-for-gethashcode.aspx)
+                    _requestedHashCode = this.Id.GetHashCode() ^ 31; // XOR for random distribution (http://blogs.msdn.com/b/ericlippert/archive/2011/02/28/guidelines-and-rules-for-gethashcode.aspx)
 
                 return _requestedHashCode.Value;
             }
-
-            return base.GetHashCode();
+            else
+                return base.GetHashCode();
         }
 
         public override bool Equals(object obj)
@@ -31,31 +35,34 @@
             if (obj == null || !(obj is Entity))
                 return false;
 
-            if (ReferenceEquals(this, obj))
+            if (Object.ReferenceEquals(this, obj))
                 return true;
 
-            if (GetType() != obj.GetType())
+            if (this.GetType() != obj.GetType())
                 return false;
 
-            var item = (Entity)obj;
+            Entity item = (Entity)obj;
 
-            if (item.IsTransient() || IsTransient())
+            if (item.IsTransient() || this.IsTransient())
                 return false;
-            return item.Id == Id;
+            else
+                return item.Id == this.Id;
         }
 
         public static bool operator ==(Entity left, Entity right)
         {
-            if (Equals(left, null))
-                return Equals(right, null) ? true : false;
-            return left.Equals(right);
+            if (Object.Equals(left, null))
+                return (Object.Equals(right, null)) ? true : false;
+            else
+                return left.Equals(right);
         }
 
         public static bool operator !=(Entity left, Entity right)
         {
-            if (Equals(left, null))
-                return Equals(right, null) ? true : false;
-            return left.Equals(right);
+            if (Object.Equals(left, null))
+                return (Object.Equals(right, null)) ? true : false;
+            else
+                return left.Equals(right);
         }
     }
 }

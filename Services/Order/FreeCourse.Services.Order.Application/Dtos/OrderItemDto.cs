@@ -1,4 +1,5 @@
-﻿namespace FreeCourse.Services.Order.Application.Dtos
+﻿using System;
+namespace FreeCourse.Services.Order.Application.Dtos
 {
     public class OrderItemDto
     {

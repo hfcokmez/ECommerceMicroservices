@@ -1,10 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FreeCourse.Services.Order.Domain.Core;
 
 namespace FreeCourse.Services.Order.Domain.OrderAggregate
 {
     public class Address : ValueObject
     {
+        public string Province { get; private set; }
+        public string District { get; private set; }
+        public string Street { get; private set; }
+        public string ZipCode  { get; private set; }
+        public string Line { get; set; }
+
         public Address(string province, string district, string street, string zipCode, string line)
         {
             Province = province;
@@ -13,12 +20,6 @@ namespace FreeCourse.Services.Order.Domain.OrderAggregate
             ZipCode = zipCode;
             Line = line;
         }
-
-        public string Province { get; }
-        public string District { get; }
-        public string Street { get; }
-        public string ZipCode { get; }
-        public string Line { get; set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

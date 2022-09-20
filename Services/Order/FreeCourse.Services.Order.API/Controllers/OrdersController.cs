@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using FreeCourse.Services.Order.Application.Commands;
 using FreeCourse.Services.Order.Application.Queries;
 using FreeCourse.Shared.ControllerBases;
@@ -15,18 +18,18 @@ namespace FreeCourse.Services.Order.API.Controllers
     public class OrdersController : CustomBaseController
     {
         private readonly IMediator _mediator;
-        private readonly ISharedIdentityService _sharedIdentityService;
+        private readonly ISharedIdentityService _service;
 
-        public OrdersController(IMediator mediator, ISharedIdentityService sharedIdentityService)
+        public OrdersController(IMediator mediator, ISharedIdentityService service)
         {
             _mediator = mediator;
-            _sharedIdentityService = _sharedIdentityService;
+            _service = service;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetOrders()
         {
-            var response = await _mediator.Send(new GetOrdersByUserIdQuery { UserId = _sharedIdentityService.UserId });
+            var response = await _mediator.Send(new GetOrdersByUserIdQuery { UserId = _service.UserId });
             return CreateActionResultInstance(response);
         }
 

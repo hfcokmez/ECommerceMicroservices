@@ -3,8 +3,10 @@
     Layout = "_Layout";
 }
 
-<div class="alert alert-info">
-    <p>Payment completed.</p>
-    <p>Order No: @ViewBag.orderId</p>
+<div class="container mt-3">
+    <div class="alert alert-info">
+        <p>Payment completed.</p>
+        <p>Order No: @ViewBag.orderId</p>
+    </div>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Home</a>
 </div>
-<a class="btn btn-primary" asp-controller="Home" asp-action="Index">Home</a>
