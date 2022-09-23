@@ -5,7 +5,7 @@ namespace FreeCourse.Web.Models.ViewModels.Orders
 {
     public class OrderViewModel
     {
-        private List<OrderItemViewModel> _orderItems;
+        public List<OrderItemViewModel> OrderItems;
         public int Id { get; set; }
         public DateTime CreatedDate { get; private set; }
         // There is no need to get the Address of the order rn.
