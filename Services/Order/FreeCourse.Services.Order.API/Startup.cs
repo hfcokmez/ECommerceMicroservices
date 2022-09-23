@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using FreeCourse.Services.Order.Application.Consumers;
 using FreeCourse.Services.Order.Infrastructure;
 using FreeCourse.Shared.Services;
 using MediatR;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +36,24 @@ namespace FreeCourse.Services.Order.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<CreateOrderMessageCommandConsumer>();
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(Configuration["RabbitMQUrl"], "/", host =>
+                    {
+                        host.Username("guest");
+                        host.Password("guest");
+                    });
+                    cfg.ReceiveEndpoint("create-order-service",
+                        configurator =>
+                        {
+                            configurator.ConfigureConsumer<CreateOrderMessageCommandConsumer>(context);
+                        });
+                });
+            });
+            services.AddMassTransitHostedService();
             var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
 
@@ -45,18 +65,13 @@ namespace FreeCourse.Services.Order.API
             });
             services.AddDbContext<OrderDbContext>(opt =>
             {
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), configure =>
-                {
-                    configure.MigrationsAssembly("FreeCourse.Services.Order.Infrastructure");
-                });
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                    configure => { configure.MigrationsAssembly("FreeCourse.Services.Order.Infrastructure"); });
             });
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddMediatR(typeof(Application.Handlers.CreateOrderCommandHandler).Assembly);
             services.AddHttpContextAccessor();
-            services.AddControllers(opt =>
-            {
-                opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
-            });
+            services.AddControllers(opt => { opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy)); });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Freeservices.Services.Order", Version = "v1" });
@@ -77,10 +92,10 @@ namespace FreeCourse.Services.Order.API
                         new OpenApiSecurityScheme
                         {
                             Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                },
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
                             Scheme = "oauth2",
                             Name = "Bearer",
                             In = ParameterLocation.Header,
@@ -88,7 +103,6 @@ namespace FreeCourse.Services.Order.API
                         new List<string>()
                     }
                 });
-
             });
         }
 
@@ -107,13 +121,10 @@ namespace FreeCourse.Services.Order.API
             app.UseRouting();
 
             app.UseAuthentication();
-            
+
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
