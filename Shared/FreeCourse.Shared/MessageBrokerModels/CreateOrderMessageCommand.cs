@@ -4,6 +4,10 @@ namespace FreeCourse.Shared.MessageBrokerModels
 {
     public class CreateOrderMessageCommand
     {
+        public CreateOrderMessageCommand()
+        {
+            OrderItems = new List<OrderItem>();
+        }
         public string BuyerId { get; set; }
         public List<OrderItem> OrderItems { get; set; }
         public string Province { get; set; }

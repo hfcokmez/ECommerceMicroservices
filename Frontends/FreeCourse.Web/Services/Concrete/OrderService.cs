@@ -123,7 +123,7 @@ namespace FreeCourse.Web.Services.Concrete
             {
                 return new SuspendOrderViewModel() { Error = "Payment failed", IsSuccessful = false };
             }
-
+            await _basketService.Delete();
             return new SuspendOrderViewModel() { IsSuccessful = true };
         }
 

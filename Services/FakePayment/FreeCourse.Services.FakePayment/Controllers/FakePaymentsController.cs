@@ -1,6 +1,10 @@
+using System;
+using System.Threading.Tasks;
 using FreeCourse.Services.FakePayment.Models;
 using FreeCourse.Shared.ControllerBases;
 using FreeCourse.Shared.Dtos;
+using FreeCourse.Shared.MessageBrokerModels;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FreeCourse.Services.FakePayment.Controllers
@@ -9,10 +13,40 @@ namespace FreeCourse.Services.FakePayment.Controllers
     [ApiController]
     public class FakePaymentsController : CustomBaseController
     {
-        [HttpPost]
-        public IActionResult ReceivePayment(PaymentDTO paymentDto)
+        private readonly ISendEndpointProvider _sendEndpointProvider;
+
+        public FakePaymentsController(ISendEndpointProvider sendEndpointProvider)
         {
-            return CreateActionResultInstance(Response<NoContent>.Success(200));
+            _sendEndpointProvider = sendEndpointProvider;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ReceivePayment(PaymentDTO paymentDto)
+        {
+            var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-order-service"));
+            var createOrderMessageCommand = new CreateOrderMessageCommand()
+            {
+                BuyerId = paymentDto.Order.BuyerId,
+                District = paymentDto.Order.Address.District,
+                Line = paymentDto.Order.Address.Line,
+                Province = paymentDto.Order.Address.Province,
+                Street = paymentDto.Order.Address.Street,
+                ZipCode = paymentDto.Order.Address.ZipCode
+            };
+            paymentDto.Order.OrderItems.ForEach(x =>
+            {
+                createOrderMessageCommand.OrderItems.Add(new OrderItem()
+                {
+                    PictureUrl = x.PictureUrl,
+                    Price = x.Price,
+                    ProductId = x.ProductId,
+                    ProductName = x.ProductName
+                });
+            });
+
+            await sendEndpoint.Send<CreateOrderMessageCommand>(createOrderMessageCommand);
+            
+            return CreateActionResultInstance(Shared.Dtos.Response<NoContent>.Success(200));
         }
     }
 }
