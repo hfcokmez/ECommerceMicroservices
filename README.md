@@ -4,7 +4,7 @@
 
           -> Order API (SQL Server Express - EF Core)    --- User JWT
                   
-                  -> Fake Payment
+                  -> Fake Payment   --- User JWT
         
           -> Catalog API (MongoDB - MongoDB.Driver)     --- JWT (No User) 
         
